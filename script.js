@@ -36,7 +36,7 @@ const translations = {
         locations_intro: "Zapraszamy do naszych dwóch pracowni w Warszawie. Kliknij przyciski, aby zobaczyć dokładną lokalizację w Google Maps.",
         accessibility: "Dostępność:",
         accessibility_desc1: "Wejście dostosowane dla niepełnosprawnych",
-        accessibility_desc2: "Wejście nie dostosowane dla niepełnosprawnych",
+        accessibility_desc2: "Wejście niedostosowane dla niepełnosprawnych",
         parking: "Parking:",
         parking_desc1: "Miejsca postojowe przy ulicy",
         parking_desc2: "Przestrzeń postojowa w okolicy",
