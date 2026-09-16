@@ -1,3 +1,11 @@
+console.log("1. Script file loaded!");
+
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("2. Found lang buttons:", document.querySelectorAll('.lang-btn').length);
+  console.log("3. Found translate elements:", document.querySelectorAll('[data-translate]').length);
+  console.log("4. Found theme toggle button:", document.getElementById('themeToggle'));
+});
+
 const translations = {
   pl: {
     tagline: "Rodzinny zakład krawiecki z tradycją od 2024 roku",
