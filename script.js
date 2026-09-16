@@ -1,4 +1,3 @@
-// Language Translations
 const translations = {
     pl: {
         tagline: "Rodzinny zakład krawiecki z tradycją od 2024 roku",
@@ -36,13 +35,14 @@ const translations = {
         locations_title: "Nasze Pracownie",
         locations_intro: "Zapraszamy do naszych dwóch pracowni w Warszawie. Kliknij przyciski, aby zobaczyć dokładną lokalizację w Google Maps.",
         accessibility: "Dostępność:",
-        accessibility_desc: "Wejście dostosowane dla niepełnosprawnych",
+        accessibility_desc1: "Wejście dostosowane dla niepełnosprawnych",
+        accessibility_desc2: "Wejście nie dostosowane dla niepełnosprawnych",
         parking: "Parking:",
         parking_desc1: "Miejsca postojowe przy ulicy",
         parking_desc2: "Przestrzeń postojowa w okolicy",
         transport: "Komunikacja:",
         transport_desc1: "Kilka przystanków autobusowych w bezpośrednim sąsiedztwie",
-        transport_desc2: "Dobrze skomunikowana lokalizacja z dostępem do transportu publicznego",
+        transport_desc2: "Dobrze skomunikowana lokalizacja z dostępem do metra i autobusów",
         view_on_map: "Zobacz na Mapie",
         footer_tagline: "Rodzinny zakład krawiecki z pasją do doskonałości",
         contact_title: "Kontakt",
@@ -90,13 +90,14 @@ const translations = {
         locations_title: "Our Workshops",
         locations_intro: "We invite you to our two workshops in Warsaw. Click the buttons to see the exact location on Google Maps.",
         accessibility: "Accessibility:",
-        accessibility_desc: "Entrance adapted for people with disabilities",
+        accessibility_desc1: "Entrance adapted for people with disabilities",
+        accessibility_desc2: "Entrance not adapted for people with disabilities",
         parking: "Parking:",
         parking_desc1: "Street parking spaces",
         parking_desc2: "Parking area nearby",
         transport: "Transport:",
         transport_desc1: "Several bus stops in the immediate vicinity",
-        transport_desc2: "Well-connected location with access to public transport",
+        transport_desc2: "Well-connected location with access to metro and buses",
         view_on_map: "View on Map",
         footer_tagline: "Family tailoring workshop with a passion for excellence",
         contact_title: "Contact",
@@ -144,13 +145,14 @@ const translations = {
         locations_title: "Наші Майстерні",
         locations_intro: "Запрошуємо до наших двох майстерень у Варшаві. Натисніть кнопки, щоб побачити точне розташування на Google Maps.",
         accessibility: "Доступність:",
-        accessibility_desc: "Вхід пристосований для людей з обмеженими можливостями",
+        accessibility_desc1: "Вхід пристосований для людей з обмеженими можливостями",
+        accessibility_desc2: "Вхід не пристосований для людей з обмеженими можливостями",
         parking: "Парковка:",
         parking_desc1: "Місця для паркування на вулиці",
         parking_desc2: "Простір для паркування поблизу",
         transport: "Транспорт:",
         transport_desc1: "Кілька автобусних зупинок у безпосередній близькості",
-        transport_desc2: "Добре зв'язане місце з доступом до громадського транспорту",
+        transport_desc2: "Зручне розташування з доступом до метро та автобусів",
         view_on_map: "Подивитися на Карті",
         footer_tagline: "Сімейна кравецька майстерня з пристрастю до досконалості",
         contact_title: "Контакт",
@@ -163,132 +165,3 @@ const translations = {
         copyright2: "Дизайн та виконання з урахуванням наших клієнтів."
     }
 };
-
-// Language Switcher Functionality
-const langButtons = document.querySelectorAll('.lang-btn');
-const htmlElement = document.documentElement;
-
-// Check for saved language or browser preference
-function getPreferredLanguage() {
-    const savedLang = localStorage.getItem('language');
-    if (savedLang && translations[savedLang]) {
-        return savedLang;
-    }
-    
-    // Detect browser language
-    const browserLang = navigator.language || navigator.userLanguage;
-    const shortLang = browserLang.split('-')[0];
-    
-    if (translations[shortLang]) {
-        return shortLang;
-    }
-    
-    return 'pl'; // Default to Polish
-}
-
-// Set language
-function setLanguage(lang) {
-    if (!translations[lang]) return;
-    
-    // Update HTML lang attribute
-    htmlElement.setAttribute('lang', lang);
-    
-    // Update active button
-    langButtons.forEach(btn => {
-        btn.classList.remove('active');
-        if (btn.dataset.lang === lang) {
-            btn.classList.add('active');
-        }
-    });
-    
-    // Update all translatable elements
-    document.querySelectorAll('[data-translate]').forEach(element => {
-        const key = element.getAttribute('data-translate');
-        if (translations[lang][key]) {
-            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                element.placeholder = translations[lang][key];
-            } else if (element.tagName === 'OPTION') {
-                element.textContent = translations[lang][key];
-            } else if (element.hasAttribute('data-html')) {
-                element.innerHTML = translations[lang][key];
-            } else {
-                element.textContent = translations[lang][key];
-            }
-        }
-    });
-    
-    // Save to localStorage
-    localStorage.setItem('language', lang);
-}
-
-// Initialize language
-setLanguage(getPreferredLanguage());
-
-// Event listeners for language buttons
-langButtons.forEach(btn => {
-    btn.addEventListener('click', () => {
-        setLanguage(btn.dataset.lang);
-    });
-});
-
-// Theme Toggle Functionality
-const themeToggle = document.getElementById('themeToggle');
-const themeIcon = themeToggle.querySelector('i');
-
-// Check for saved theme or system preference
-function getPreferredTheme() {
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme) {
-        return savedTheme;
-    }
-    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-}
-
-// Set theme
-function setTheme(theme) {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    
-    // Update icon
-    if (theme === 'dark') {
-        themeIcon.classList.remove('fa-moon');
-        themeIcon.classList.add('fa-sun');
-    } else {
-        themeIcon.classList.remove('fa-sun');
-        themeIcon.classList.add('fa-moon');
-    }
-}
-
-// Toggle theme
-function toggleTheme() {
-    const currentTheme = document.documentElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    setTheme(newTheme);
-}
-
-// Initialize theme
-setTheme(getPreferredTheme());
-
-// Event listener for theme toggle
-themeToggle.addEventListener('click', toggleTheme);
-
-// Listen for system theme changes
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (!localStorage.getItem('theme')) {
-        setTheme(e.matches ? 'dark' : 'light');
-    }
-});
-
-// Smooth scrolling for navigation
-document.querySelectorAll('.nav-item').forEach(link => {
-    link.addEventListener('click', function(e) {
-        e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetSection = document.querySelector(targetId);
-        
-        window.scrollTo({
-            top: targetSection.offsetTop - 80,
-            behavior: 'smooth'
-        });
-    });
-});
